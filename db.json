@@ -1,0 +1,25 @@
+{
+  "bookings": [
+    {
+      "bouquetName": "ChineseChandelier",
+      "bookedOn": "2022-10-14",
+      "emailId": "pguppta11@gmail.com",
+      "flowerCount": "1",
+      "id": 1
+    },
+    {
+      "bouquetName": "ChineseChandelier",
+      "bookedOn": "2022-10-01",
+      "emailId": "pguppta11@gmail.com",
+      "flowerCount": "3",
+      "id": 2
+    },
+    {
+      "bouquetName": "TerifficTulip",
+      "bookedOn": "2022-10-05",
+      "emailId": "e@gmail.com",
+      "flowerCount": "1",
+      "id": 3
+    }
+  ]
+}
