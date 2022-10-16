@@ -1,9 +1,12 @@
 import React,{useState} from 'react'
 import axios from "axios"
+import {validation} from './../validators/validation';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const BookingComponents = () => {
+const BookingComponent = (props) => {
+    const navigate = useNavigate();
     
     //state to hold the form details that needs to be added . when user enter the values the state gets updated 
     const [data,setData] = useState({
@@ -13,15 +16,38 @@ const BookingComponents = () => {
         flowerCount:"",
     });
 
+    // const [formErrors,setFormErrors] = useState({
+    //     emailIdError:"",
+    //     flowerCountError:"",
+    //     bouquetNameError:"",
+    //     bookedOnError:"",
+    // })
+
+    const [mandatory,setMandatory] = useState(false);
     const [successMessage,setSuccessMessage] = useState("");
-    // const [mandatory,setMandatory] = useState(false);
     const [errorMessages,setErrorMessage] = useState("");
+    console.log(errorMessages);
     const [errorMessage,setErrorMessages] = useState({
         bouquetNameError:"",
         flowerCountError:"",
         emailIdError:"",
         bookedOnError:"",
     });
+
+    const [messages] = useState({
+        EMAILID_ERROR:"Please enter valid email",
+        FLOWER_COUNT_ERROR:"Bouquet count(s) should be 1 or more",
+        BOUQUET_NAME_ERROR:"Please select bouquet type",
+        BOOKED_ON_ERROR:"Booking date should be after today date",
+        ERROR:"Something went wrong",
+        MANDATORY:"Enter all the form fields"
+
+    })
+
+
+    
+
+    // step 2
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -35,14 +61,78 @@ const BookingComponents = () => {
                 setErrorMessages("Enter all Fields");
             })
         }
+        navigate(0);
     };
+
+    // setp 1 
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setData({...data,[name]:value})
         console.log("value" , value);
+        validateField(name,value);
     };
+
+    const validateField = (name,value) => {
+        let error = errorMessage;
+        switch(name) {
+            case "bouquetName":
+            if (!validation.validateBouquet(value)){
+                error.bouquetNameError = messages.BOUQUET_NAME_ERROR;
+            }
+            else {
+                console.log("Checked");
+                error.bouquetNameError = "";
+            }
+            break;
+
+            case "flowerCount":
+                if(!validation.validFlowerCount(value)){
+                    error.flowerCountError = messages.FLOWER_COUNT_ERROR;
+                }
+                else {
+                    console.log("Checked");
+                    error.flowerCountError = "";
+                }
+                break;
+
+                case "emailId":
+                if(validation.validateEmail(value)){
+                    error.emailIdError = "";
+                }
+                else {
+                    console.log("Checked");
+                    error.emailIdError = messages.EMAILID_ERROR;
+                }
+                break;
+
+
+                case "bookedOn":
+                    if(!validation.validDate(value)){
+                        error.bookedOnError = messages.BOOKED_ON_ERROR;
+                    }
+                    else {
+                        
+                        error.bookedOnError="";
+                    }
+                    break;
+
+                default:
+                    break;
+        }
+
+        setErrorMessage(error);
+        if(Object.values(error).every((value) => value === "")) {
+            setMandatory(true);
+        }
+
+        else
+        {
+            setMandatory(false);
+        }
+
+    }
 
   return (
     <>
@@ -58,7 +148,7 @@ const BookingComponents = () => {
                             <label>Bouquet Name</label>
                             <select name="bouquetName" value={data.bouquetName} onChange={handleChange}  data-testid="bouquetName" className='form-control'>
                             <option value="" disabled>Select a bouquet</option>
-                                <option value="RosalineRed" disabled>Select a bouquet</option>
+                                <option value="RosalineRed" >Rosaline Red</option>
                                 <option value="TerifficTulip">Teriffic Tulip</option>
                                 <option value="ChineseChandelier">Chinese Chandelier</option>
                             </select>
@@ -80,10 +170,11 @@ const BookingComponents = () => {
                             <input type="date" value={data.bookedOn} onChange={handleChange} data-testid="bookedOn" name="bookedOn" className="form-control"></input>
                             {errorMessage.bookedOnError ?(<span className='text-danger'>{errorMessage.bookedOnError}</span>):null}
                         </div>
+                        <br></br>
                         {/* disabled={!mandatory} */}
-                        <button data-testid="button"  type='submit' name="active" className='btn btn-primary'>Book Bouquet</button><br></br>
+                        <button disabled={!mandatory}  data-testid="button"  type='submit' name="active" className='btn btn-primary'>Book Bouquet</button><br></br>
                         {successMessage?(<span className='text-success'>{successMessage}</span>):null}
-                        {setErrorMessage?(<span className='text-danger'>{setErrorMessages}</span>):null}
+                        { setErrorMessage?(<span className='text-danger'>{setErrorMessages}</span>):null}
                     </form>
                     
                 </div>
@@ -94,4 +185,4 @@ const BookingComponents = () => {
   )
 }
 
-export default BookingComponents
+export default BookingComponent

@@ -2,13 +2,6 @@
   "bookings": [
     {
       "bouquetName": "ChineseChandelier",
-      "bookedOn": "2022-10-14",
-      "emailId": "pguppta11@gmail.com",
-      "flowerCount": "1",
-      "id": 1
-    },
-    {
-      "bouquetName": "ChineseChandelier",
       "bookedOn": "2022-10-01",
       "emailId": "pguppta11@gmail.com",
       "flowerCount": "3",
@@ -20,6 +13,34 @@
       "emailId": "e@gmail.com",
       "flowerCount": "1",
       "id": 3
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-07",
+      "emailId": "1",
+      "flowerCount": "1",
+      "id": 4
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-21",
+      "emailId": "cse15321.sbit@gmail.com",
+      "flowerCount": "1",
+      "id": 5
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-25",
+      "emailId": "cse15321.sbit@gmail.com",
+      "flowerCount": "1",
+      "id": 6
+    },
+    {
+      "bouquetName": "TerifficTulip",
+      "bookedOn": "2022-10-30",
+      "emailId": "csssssse15321.sbit@gmail.com",
+      "flowerCount": "1",
+      "id": 7
     }
   ]
 }
