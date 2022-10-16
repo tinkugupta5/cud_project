@@ -11,7 +11,7 @@ const Nav = () => {
             Book Bouquet
           </Link>
 
-          <Link className="btn btn-outline-light me-2" data-testid="viewBookings-link" to="/viewBookings">
+          <Link className="btn btn-outline-light me-2" data-testid="viewBookings-link" to="/viewBooking">
             View Bookings
           </Link>
 

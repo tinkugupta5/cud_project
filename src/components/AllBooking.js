@@ -52,6 +52,7 @@ const AllBooking = () => {
               <li>Bouquet Name : {bouquet.bouquetName}</li>
               <li>No of Bouquet : {bouquet.flowerCount}</li>
               <li>Booking Date : {bouquet.bookedOn}</li>
+              <li>Booking email id : {bouquet.emailId}</li>
             </ul>
             <button className='btn btn-lg btn-block btn-primary text-center' onClick={()=>{
               handleAction(bouquet.id)
