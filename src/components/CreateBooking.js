@@ -9,35 +9,35 @@ const BookingComponent = (props) => {
     const navigate = useNavigate();
     
     //state to hold the form details that needs to be added . when user enter the values the state gets updated 
-    const [data,setData] = useState({
+    const [state,setState] = useState({
         bouquetName:"",
         bookedOn:"",
         emailId:"",
         flowerCount:"",
     });
 
-    // const [formErrors,setFormErrors] = useState({
-    //     emailIdError:"",
-    //     flowerCountError:"",
-    //     bouquetNameError:"",
-    //     bookedOnError:"",
-    // })
+    const [formErrors,setFormErrors] = useState({
+        emailIdError:"",
+        flowerCountError:"",
+        bouquetNameError:"",
+        bookedOnError:"",
+    })
 
     const [mandatory,setMandatory] = useState(false);
     const [successMessage,setSuccessMessage] = useState("");
     const [errorMessages,setErrorMessage] = useState("");
     console.log(errorMessages);
-    const [errorMessage,setErrorMessages] = useState({
-        bouquetNameError:"",
-        flowerCountError:"",
-        emailIdError:"",
-        bookedOnError:"",
-    });
+    // const [errorMessage,setErrorMessages] = useState({
+    //     bouquetNameError:"",
+    //     flowerCountError:"",
+    //     emailIdError:"",
+    //     bookedOnError:"",
+    // });
 
     const [messages] = useState({
-        EMAILID_ERROR:"Please enter valid email",
-        FLOWER_COUNT_ERROR:"Bouquet count(s) should be 1 or more",
         BOUQUET_NAME_ERROR:"Please select bouquet type",
+        EMAILID_ERROR:"Please enter valid email",
+        FLOWER_COUNT_ERROR:"Bouquet count(s) should be 1 or more",       
         BOOKED_ON_ERROR:"Booking date should be after today date",
         ERROR:"Something went wrong",
         MANDATORY:"Enter all the form fields"
@@ -51,14 +51,14 @@ const BookingComponent = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(Object.values(data).every((value) => value !=="")) {
-            axios.post("http://localhost:4000/bookings",data)
+        if(Object.values(state).every((value) => value !=="")) {
+            axios.post("http://localhost:4000/bookings",state)
             .then((res)=> {
                 console.log("res",res)
                 setSuccessMessage ("data submitted successfully for ID number" + res.data.id);               
             })
             .catch((err) =>{
-                setErrorMessages("Enter all Fields");
+                setFormErrors("Enter all Fields");
             })
         }
         navigate(0);
@@ -69,13 +69,13 @@ const BookingComponent = (props) => {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setData({...data,[name]:value})
+        setState({...state,[name]:value})
         console.log("value" , value);
         validateField(name,value);
     };
 
     const validateField = (name,value) => {
-        let error = errorMessage;
+        let error = formErrors;
         switch(name) {
             case "bouquetName":
             if (!validation.validateBouquet(value)){
@@ -146,35 +146,35 @@ const BookingComponent = (props) => {
                     <form className='form' data-testid="bouquet-form" noValidate onSubmit={handleSubmit}>
                         <div className="form-group" >
                             <label>Bouquet Name</label>
-                            <select name="bouquetName" value={data.bouquetName} onChange={handleChange}  data-testid="bouquetName" className='form-control'>
-                            <option value="" disabled>Select a bouquet</option>
+                            <select name="bouquetName" value={state.bouquetName} onChange={handleChange}  data-testid="bouquetName" className='form-control'>
+                            <option value="">Select a bouquet</option>
                                 <option value="RosalineRed" >Rosaline Red</option>
                                 <option value="TerifficTulip">Teriffic Tulip</option>
                                 <option value="ChineseChandelier">Chinese Chandelier</option>
                             </select>
 
-                            {errorMessage.bouquetNameError ?(<span className='text-danger'>{errorMessage.bouquetNameError}</span>):null}
+                            {formErrors.bouquetNameError ?(<span className='text-danger'>{formErrors.bouquetNameError}</span>):null}
                         </div>
                         <div className='form-group'>
                             <label>Email Id</label>
-                            <input type="email" value={data.emailId} onChange={handleChange} data-testid="emailId" name="emailId" className="form-control" placeholder="Enter your Email"></input>
-                            {errorMessage.emailIdError ?(<span className='text-danger'>{errorMessage.emailIdError}</span>):null}
+                            <input type="email" value={state.emailId} onChange={handleChange} data-testid="emailId" name="emailId" className="form-control" placeholder="Enter your Email"></input>
+                            {formErrors.emailIdError ?(<span className='text-danger'>{formErrors.emailIdError}</span>):null}
                         </div>
                         <div className='form-group'>
                             <label>No of Bouquet</label>
-                            <input type="number" value={data.flowerCount} onChange={handleChange}  data-testid="flowerCount" name="flowerCount" className="form-control" placeholder="Number of Bouquets"></input>
-                            {errorMessage.flowerCountError ?(<span className='text-danger'>{errorMessage.flowerCountError}</span>):null}
+                            <input type="number" value={state.flowerCount} onChange={handleChange}  data-testid="flowerCount" name="flowerCount" className="form-control" placeholder="Number of Bouquets"></input>
+                            {formErrors.flowerCountError ?(<span className='text-danger'>{formErrors.flowerCountError}</span>):null}
                         </div>
                         <div className='form-group'>
                             <label>Booking  Date</label>
-                            <input type="date" value={data.bookedOn} onChange={handleChange} data-testid="bookedOn" name="bookedOn" className="form-control"></input>
-                            {errorMessage.bookedOnError ?(<span className='text-danger'>{errorMessage.bookedOnError}</span>):null}
+                            <input type="date" value={state.bookedOn} onChange={handleChange} data-testid="bookedOn" name="bookedOn" className="form-control"></input>
+                            {formErrors.bookedOnError ?(<span className='text-danger'>{formErrors.bookedOnError}</span>):null}
                         </div>
                         <br></br>
                         {/* disabled={!mandatory} */}
                         <button disabled={!mandatory}  data-testid="button"  type='submit' name="active" className='btn btn-primary'>Book Bouquet</button><br></br>
                         {successMessage?(<span className='text-success'>{successMessage}</span>):null}
-                        { setErrorMessage?(<span className='text-danger'>{setErrorMessages}</span>):null}
+                        { setErrorMessage?(<span className='text-danger'>{setFormErrors}</span>):null}
                     </form>
                     
                 </div>
