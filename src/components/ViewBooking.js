@@ -117,19 +117,13 @@ const onsubmit = (event) => {
                     <td>{state.bookingData.flowerCount}</td>
                     <td>{state.bookingData.bookedOn}</td>
                     <td>
-                      <button className='btn btn-danger btn-sm mt-2 ms-2' data-testid="delete-button" onClick={()=>{handleAction("onDelete");}}>Delete</button>
+                      <button className='btn btn-danger  mt-2 ms-2' data-testid="delete-button" onClick={()=>{handleAction("onDelete");}}>Delete</button>
+                      <button className='btn btn-success  mt-2 ms-2' data-testid="update-button" onClick={()=>{}}>Delete</button>
                     </td>
                   </tr>
                 </tbody>
-
-
-
               </table>):null}
-
-
               {state.infoMessage ? (<p data-testid className="text-info mt-2">{state.infoMessage}</p>):null}
-
-
 
             </form>
           </div>

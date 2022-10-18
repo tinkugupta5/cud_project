@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
 import axios from "axios"
 import {validation} from './../validators/validation';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 
 const BookingComponent = (props) => {
-    const navigate = useNavigate();
+   //  const navigate = useNavigate();
     
     //state to hold the form details that needs to be added . when user enter the values the state gets updated 
     const [state,setState] = useState({
@@ -51,18 +51,23 @@ const BookingComponent = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(Object.values(state).every((value) => value !=="")) {
+        // if(Object.values(state).every((value) => value !=="")) {
+            if(state.bookedOn === "" || state.flowerCount === "" || state.emailId === "" || state.flowerCount === ""){
+            setMandatory(true)
+            } else {
             axios.post("http://localhost:4000/bookings",state)
             .then((res)=> {
                 console.log("res",res)
                 setSuccessMessage ("data submitted successfully for ID number" + res.data.id);               
             })
             .catch((err) =>{
-                setFormErrors("Enter all Fields");
+                setFormErrors(messages.ERROR);
             })
+
         }
-        navigate(0);
-    };
+    }
+      //   navigate(0);
+   
 
     // setp 1 
 
@@ -101,6 +106,12 @@ const BookingComponent = (props) => {
                 if(validation.validateEmail(value)){
                     error.emailIdError = "";
                 }
+
+                // if(!validation.validateEmail(value)){
+                //     error.emailIdError = messages.EMAILID_ERROR
+                // }  for certification
+
+                
                 else {
                     console.log("Checked");
                     error.emailIdError = messages.EMAILID_ERROR;
@@ -110,6 +121,16 @@ const BookingComponent = (props) => {
 
                 case "bookedOn":
                     if(!validation.validDate(value)){
+                        error.bookedOnError = messages.BOOKED_ON_ERROR;
+                    }
+                    else {
+                        
+                        error.bookedOnError="";
+                    }
+                    break;
+
+                    case "":
+                    if(!validation(value)){
                         error.bookedOnError = messages.BOOKED_ON_ERROR;
                     }
                     else {
@@ -147,7 +168,7 @@ const BookingComponent = (props) => {
                         <div className="form-group" >
                             <label>Bouquet Name</label>
                             <select name="bouquetName" value={state.bouquetName} onChange={handleChange}  data-testid="bouquetName" className='form-control'>
-                            <option value="">Select a bouquet</option>
+                            <option value=''>Select a bouquet</option>
                                 <option value="RosalineRed" >Rosaline Red</option>
                                 <option value="TerifficTulip">Teriffic Tulip</option>
                                 <option value="ChineseChandelier">Chinese Chandelier</option>
@@ -173,6 +194,8 @@ const BookingComponent = (props) => {
                         <br></br>
                         {/* disabled={!mandatory} */}
                         <button disabled={!mandatory}  data-testid="button"  type='submit' name="active" className='btn btn-primary'>Book Bouquet</button><br></br>
+                        {mandatory?(<span className='text-success'>{messages.MANDATORY}</span>):null}
+                        
                         {successMessage?(<span className='text-success'>{successMessage}</span>):null}
                         { setErrorMessage?(<span className='text-danger'>{setFormErrors}</span>):null}
                     </form>

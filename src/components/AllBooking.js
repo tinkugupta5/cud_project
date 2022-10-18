@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 const AllBooking = () => {
 
   const [bookings,setBookings] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -26,7 +26,7 @@ const AllBooking = () => {
     .delete("http://localhost:4000/bookings/" + id)
     .then(()=> {
       alert("The CV With Id Number : " + id + "is deleted");
-      navigate(0);
+      // navigate(0);
     })
 
     .catch ((err) => {
