@@ -4,6 +4,7 @@ import BookingComponents from "./components/CreateBooking";
 import ViewBooking from "./components/ViewBooking";
 import AllBooking from "./components/AllBooking";
 import Nav from "./components/Nav";
+import UpdateBooking from "./components/updateBooking";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<BookingComponents/>} />
           <Route path="/allBookings" element={<AllBooking/>} />
           <Route path="/viewBooking" element={<ViewBooking/>}/>
+         <Route path="/update/edit/:id" element={<UpdateBooking/>}/>
         </Routes>
       </div>
     </BrowserRouter>

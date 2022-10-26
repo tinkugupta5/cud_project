@@ -42,7 +42,9 @@ const ViewBooking = () => {
 
       axios.delete(url + state.bookingId)
       .then((res) => {
+        console.log(res);
         setState({...state,infoMessage:messages.INFO})
+        // window.location.reload(true)
       })
 
 
@@ -118,7 +120,7 @@ const onsubmit = (event) => {
                     <td>{state.bookingData.bookedOn}</td>
                     <td>
                       <button className='btn btn-danger  mt-2 ms-2' data-testid="delete-button" onClick={()=>{handleAction("onDelete");}}>Delete</button>
-                      <button className='btn btn-success  mt-2 ms-2' data-testid="update-button" onClick={()=>{}}>Delete</button>
+                      <button className='btn btn-success  mt-2 ms-2' data-testid="update-button" onClick={()=>{}}>Update</button>
                     </td>
                   </tr>
                 </tbody>

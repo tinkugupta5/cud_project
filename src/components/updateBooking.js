@@ -1,12 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from "axios"
 import {validation} from './../validators/validation';
-// import { useNavigate } from 'react-router-dom';
+
+import { useNavigate , useParams } from 'react-router-dom';
 
 
 
-const BookingComponent = (props) => {
-   //  const navigate = useNavigate();
+const UpdateBooking = () => {
+    const navigate = useNavigate();
+    console.log(navigate)
+    const id = useParams()
+  
     
     //state to hold the form details that needs to be added . when user enter the values the state gets updated 
     const [state,setState] = useState({
@@ -49,24 +53,34 @@ const BookingComponent = (props) => {
 
     // step 2
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
         // if(Object.values(state).every((value) => value !=="")) {
-            if(state.bookedOn === "" || state.flowerCount === "" || state.emailId === "" || state.flowerCount === ""){
-            setMandatory(true)
-            } else {
-            axios.post("http://localhost:4000/bookings",state)
+           
+           
+             await axios.put(`http://localhost:4000/bookings/${id}`,state)
+             
             .then((res)=> {
                 console.log("res",res)
-                setSuccessMessage ("data submitted successfully for ID number" + res.data.id);               
+                setSuccessMessage ("data submitted successfully updated for ID number" + res.data.id);               
             })
             .catch((err) =>{
-                setFormErrors(messages.ERROR);***
+                setFormErrors(messages.ERROR);
             })
 
-        }
+        
     }
       //   navigate(0);
+
+      const loadUsers = async () => {
+        const result = await axios.get(`http://localhost:4000/bookings/${id}`);
+        console.log(result);
+        setState(result.data);
+      }
+
+      useEffect(() => {
+        loadUsers();
+      },[])
    
 
     // setp 1 
@@ -208,4 +222,4 @@ const BookingComponent = (props) => {
   )
 }
 
-export default BookingComponent
+export default UpdateBooking
