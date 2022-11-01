@@ -217,8 +217,7 @@ const UpdateBooking = () => {
                         
                         {successMessage?(<span className='text-success'>{successMessage}</span>):null}
                         { setErrorMessage?(<span className='text-danger'>{setFormErrors}</span>):null}
-                    </form>
-                    
+                    </form>                
                 </div>
             </div>
         </div>
