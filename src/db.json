@@ -1,0 +1,39 @@
+{
+  "bookings": [
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-21",
+      "emailId": "cse15321.sbit@gmail.com",
+      "flowerCount": "1",
+      "id": 5
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-25",
+      "emailId": "cse15321.sbit@gmail.com",
+      "flowerCount": "1",
+      "id": 6
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-22",
+      "emailId": "cse15321.sbit@gmail.com",
+      "flowerCount": "4",
+      "id": 8
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-28",
+      "emailId": "pguppta11@gmail.com",
+      "flowerCount": "1",
+      "id": 9
+    },
+    {
+      "bouquetName": "RosalineRed",
+      "bookedOn": "2022-10-29",
+      "emailId": "cse15321.sbit@gmail.com",
+      "flowerCount": "1",
+      "id": 10
+    }
+  ]
+}

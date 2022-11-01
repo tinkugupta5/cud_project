@@ -17,7 +17,7 @@ const UpdateBooking = () => {
         bouquetName:"",
         bookedOn:"",
         emailId:"",
-        flowerCount:"",
+        flowerCount:""
     });
 
     const [formErrors,setFormErrors] = useState({
@@ -26,6 +26,9 @@ const UpdateBooking = () => {
         bouquetNameError:"",
         bookedOnError:"",
     })
+
+
+    // const { bouquetName ,bookedOn,emailId,flowerCount } = state;
 
     const [mandatory,setMandatory] = useState(false);
     const [successMessage,setSuccessMessage] = useState("");
@@ -49,15 +52,25 @@ const UpdateBooking = () => {
     })
 
 
-    
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setState({...state,[name]:value})
+        console.log("value" , value);
+        // validateField(name,value);
+    };
 
     // step 2
 
-    const handleSubmit = async(event) => {
+
+      useEffect(() => {
+        loadUsers();
+      },[])
+
+      const handleSubmit = async(event) => {
         event.preventDefault();
         // if(Object.values(state).every((value) => value !=="")) {
-           
-           
+                    
              await axios.put(`http://localhost:4000/bookings/${id}`,state)
              
             .then((res)=> {
@@ -66,108 +79,100 @@ const UpdateBooking = () => {
             })
             .catch((err) =>{
                 setFormErrors(messages.ERROR);
-            })
-
-        
+            })       
     }
-      //   navigate(0);
-
-      const loadUsers = async () => {
-        const result = await axios.get(`http://localhost:4000/bookings/${id}`);
+   
+      const loadUsers =  () => {
+        const result =  axios.get(`http://localhost:4000/bookings/${id}`);
         console.log(result);
         setState(result.data);
       }
+      
 
-      useEffect(() => {
-        loadUsers();
-      },[])
-   
+  
+      //   navigate(0);
+
+
 
     // setp 1 
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setState({...state,[name]:value})
-        console.log("value" , value);
-        validateField(name,value);
-    };
+ 
 
-    const validateField = (name,value) => {
-        let error = formErrors;
-        switch(name) {
-            case "bouquetName":
-            if (!validation.validateBouquet(value)){
-                error.bouquetNameError = messages.BOUQUET_NAME_ERROR;
-            }
-            else {
-                console.log("Checked");
-                error.bouquetNameError = "";
-            }
-            break;
+    // const validateField = (name,value) => {
+    //     let error = formErrors;
+    //     switch(name) {
+    //         case "bouquetName":
+    //         if (!validation.validateBouquet(value)){
+    //             error.bouquetNameError = messages.BOUQUET_NAME_ERROR;
+    //         }
+    //         else {
+    //             console.log("Checked");
+    //             error.bouquetNameError = "";
+    //         }
+    //         break;
 
-            case "flowerCount":
-                if(!validation.validFlowerCount(value)){
-                    error.flowerCountError = messages.FLOWER_COUNT_ERROR;
-                }
-                else {
-                    console.log("Checked");
-                    error.flowerCountError = "";
-                }
-                break;
+    //         case "flowerCount":
+    //             if(!validation.validFlowerCount(value)){
+    //                 error.flowerCountError = messages.FLOWER_COUNT_ERROR;
+    //             }
+    //             else {
+    //                 console.log("Checked");
+    //                 error.flowerCountError = "";
+    //             }
+    //             break;
 
-                case "emailId":
-                if(validation.validateEmail(value)){
-                    error.emailIdError = "";
-                }
+    //             case "emailId":
+    //             if(validation.validateEmail(value)){
+    //                 error.emailIdError = "";
+    //             }
 
-                // if(!validation.validateEmail(value)){
-                //     error.emailIdError = messages.EMAILID_ERROR
-                // }  for certification
+    //             // if(!validation.validateEmail(value)){
+    //             //     error.emailIdError = messages.EMAILID_ERROR
+    //             // }  for certification
 
                 
-                else {
-                    console.log("Checked");
-                    error.emailIdError = messages.EMAILID_ERROR;
-                }
-                break;
+    //             else {
+    //                 console.log("Checked");
+    //                 error.emailIdError = messages.EMAILID_ERROR;
+    //             }
+    //             break;
 
 
-                case "bookedOn":
-                    if(!validation.validDate(value)){
-                        error.bookedOnError = messages.BOOKED_ON_ERROR;
-                    }
-                    else {
+    //             case "bookedOn":
+    //                 if(!validation.validDate(value)){
+    //                     error.bookedOnError = messages.BOOKED_ON_ERROR;
+    //                 }
+    //                 else {
                         
-                        error.bookedOnError="";
-                    }
-                    break;
+    //                     error.bookedOnError="";
+    //                 }
+    //                 break;
 
-                    case "":
-                    if(!validation(value)){
-                        error.bookedOnError = messages.BOOKED_ON_ERROR;
-                    }
-                    else {
+    //                 case "":
+    //                 if(!validation(value)){
+    //                     error.bookedOnError = messages.BOOKED_ON_ERROR;
+    //                 }
+    //                 else {
                         
-                        error.bookedOnError="";
-                    }
-                    break;
+    //                     error.bookedOnError="";
+    //                 }
+    //                 break;
 
-                default:
-                    break;
-        }
+    //             default:
+    //                 break;
+    //     }
 
-        setErrorMessage(error);
-        if(Object.values(error).every((value) => value === "")) {
-            setMandatory(true);
-        }
+    //     setErrorMessage(error);
+    //     if(Object.values(error).every((value) => value === "")) {
+    //         setMandatory(true);
+    //     }
 
-        else
-        {
-            setMandatory(false);
-        }
+    //     else
+    //     {
+    //         setMandatory(false);
+    //     }
 
-    }
+    // }
 
   return (
     <>
@@ -181,34 +186,34 @@ const UpdateBooking = () => {
                     <form className='form' data-testid="bouquet-form" noValidate onSubmit={handleSubmit}>
                         <div className="form-group" >
                             <label>Bouquet Name</label>
-                            <select name="bouquetName" value={state.bouquetName} onChange={handleChange}  data-testid="bouquetName" className='form-control'>
+                            <select  value={state.bouquetName} onChange={handleChange}  data-testid="bouquetName" name="bouquetName" className='form-control'>
                             <option value=''>Select a bouquet</option>
                                 <option value="RosalineRed" >Rosaline Red</option>
                                 <option value="TerifficTulip">Teriffic Tulip</option>
                                 <option value="ChineseChandelier">Chinese Chandelier</option>
                             </select>
 
-                            {formErrors.bouquetNameError ?(<span className='text-danger'>{formErrors.bouquetNameError}</span>):null}
+                            {/* {formErrors.bouquetNameError ?(<span className='text-danger'>{formErrors.bouquetNameError}</span>):null} */}
                         </div>
                         <div className='form-group'>
                             <label>Email Id</label>
                             <input type="email" value={state.emailId} onChange={handleChange} data-testid="emailId" name="emailId" className="form-control" placeholder="Enter your Email"></input>
-                            {formErrors.emailIdError ?(<span className='text-danger'>{formErrors.emailIdError}</span>):null}
+                            {/* {formErrors.emailIdError ?(<span className='text-danger'>{formErrors.emailIdError}</span>):null} */}
                         </div>
                         <div className='form-group'>
                             <label>No of Bouquet</label>
                             <input type="number" value={state.flowerCount} onChange={handleChange}  data-testid="flowerCount" name="flowerCount" className="form-control" placeholder="Number of Bouquets"></input>
-                            {formErrors.flowerCountError ?(<span className='text-danger'>{formErrors.flowerCountError}</span>):null}
+                            {/* {formErrors.flowerCountError ?(<span className='text-danger'>{formErrors.flowerCountError}</span>):null} */}
                         </div>
                         <div className='form-group'>
                             <label>Booking  Date</label>
                             <input type="date" value={state.bookedOn} onChange={handleChange} data-testid="bookedOn" name="bookedOn" className="form-control"></input>
-                            {formErrors.bookedOnError ?(<span className='text-danger'>{formErrors.bookedOnError}</span>):null}
+                            {/* {formErrors.bookedOnError ?(<span className='text-danger'>{formErrors.bookedOnError}</span>):null} */}
                         </div>
                         <br></br>
                         {/* disabled={!mandatory} */}
                         <button disabled={!mandatory}  data-testid="button"  type='submit' name="active" className='btn btn-primary'>Book Bouquet</button><br></br>
-                        {mandatory?(<span className='text-success'>{messages.MANDATORY}</span>):null}
+                        {/* {mandatory?(<span className='text-success'>{messages.MANDATORY}</span>):null} */}
                         
                         {successMessage?(<span className='text-success'>{successMessage}</span>):null}
                         { setErrorMessage?(<span className='text-danger'>{setFormErrors}</span>):null}

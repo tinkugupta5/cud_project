@@ -1,15 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
+import { Link } from "react-router-dom";
 
 let url = "http://localhost:4000/bookings/";
 
 
 const ViewBooking = () => {
-
-
-
-
   // state define 
 
   const [state,setState] = useState({
@@ -120,7 +117,7 @@ const onsubmit = (event) => {
                     <td>{state.bookingData.bookedOn}</td>
                     <td>
                       <button className='btn btn-danger  mt-2 ms-2' data-testid="delete-button" onClick={()=>{handleAction("onDelete");}}>Delete</button>
-                      <button className='btn btn-success  mt-2 ms-2' data-testid="update-button" onClick={()=>{}}>Update</button>
+                      <Link className='btn btn-success  mt-2 ms-2' data-testid="update-button" to={`/update/edit/${state.bookingId}`}>Update</Link>
                     </td>
                   </tr>
                 </tbody>

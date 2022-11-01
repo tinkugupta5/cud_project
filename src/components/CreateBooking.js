@@ -61,7 +61,7 @@ const BookingComponent = (props) => {
                 setSuccessMessage ("data submitted successfully for ID number" + res.data.id);               
             })
             .catch((err) =>{
-                setFormErrors(messages.ERROR);***
+                setFormErrors(messages.ERROR);
             })
 
         }
