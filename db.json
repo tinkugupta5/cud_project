@@ -1,17 +1,10 @@
 {
   "bookings": [
     {
-      "bouquetName": "RosalineRed",
-      "bookedOn": "2022-10-07",
-      "emailId": "1",
-      "flowerCount": "1",
-      "id": 4
-    },
-    {
-      "bouquetName": "RosalineRed",
+      "bouquetName": "TerifficTulip",
       "bookedOn": "2022-10-21",
-      "emailId": "cse15321.sbit@gmail.com",
-      "flowerCount": "1",
+      "emailId": "csssssssssssssssssse15321.sbit@gmail.com",
+      "flowerCount": "245",
       "id": 5
     },
     {
@@ -19,7 +12,7 @@
       "bookedOn": "2022-10-25",
       "emailId": "cse15321.sbit@gmail.com",
       "flowerCount": "1",
-      "id": 6  
+      "id": 6
     },
     {
       "bouquetName": "RosalineRed",

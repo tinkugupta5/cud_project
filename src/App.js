@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<BookingComponents/>} />
           <Route path="/allBookings" element={<AllBooking/>} />
           <Route path="/viewBooking" element={<ViewBooking/>}/>
-         <Route path="/update/edit/:id" element={<UpdateBooking/>}/>
+         <Route path="update/edit/:id" element={<UpdateBooking/>}/>
         </Routes>
       </div>
     </BrowserRouter>
