@@ -173,7 +173,6 @@ const UpdateBooking = () => {
     //     }
 
     // }
-
   return (
     <>
     <div className='CreateBooking'>
